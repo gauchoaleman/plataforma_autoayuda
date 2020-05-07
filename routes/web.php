@@ -483,6 +483,24 @@ Route::get('/chat/user/available_chatters', function () {
     return view('/chat/user/available_chatters');
 });
 
+Route::get('/chat/admin/view_chats', function () {
+  if (!isset(Auth::user()->name))
+    return view('no_access');
+  elseif (Auth::user()->is_admin == 0)
+    return view('no_access');
+  else
+    return view('/chat/admin/view_chats');
+});
+
+Route::get('/chat/admin/view_chat', function () {
+  if (!isset(Auth::user()->name))
+    return view('no_access');
+  elseif (Auth::user()->is_admin == 0)
+    return view('no_access');
+  else
+    return view('/chat/admin/view_chat');
+});
+
 Route::get('/chat/admin/chat_window_admin', function () {
   if (!isset(Auth::user()->name))
     return view('no_access');

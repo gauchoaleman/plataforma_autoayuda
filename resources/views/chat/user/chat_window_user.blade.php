@@ -13,7 +13,13 @@
         <script src="/js/chat_functions.js"></script>
         <script type="text/javascript">
           setInterval(load_log_user, 250,{{$_GET['admin_id']}});
-
+        </script>
+        <script type="text/javascript">
+        popupWindow.onunload = function () {
+            // This informs the user that the record has been added successfully
+            
+            window.opener.location.reload();
+        }
         </script>
     </head>
     <body>

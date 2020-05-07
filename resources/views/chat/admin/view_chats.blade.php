@@ -1,0 +1,5 @@
+@include('includes/head')
+@include('includes/navbar')
+@include('chat.admin.tables.view_chats_table')
+@include('includes/bottom_bar')
+@include('includes/bottom')

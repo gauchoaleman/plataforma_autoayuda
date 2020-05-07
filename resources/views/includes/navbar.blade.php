@@ -91,17 +91,37 @@
               <img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat.png'>Chat</div></a>&nbsp;
 @endif
 
-@if (Auth::user() && Auth::user()->is_admin == 1)
-          <a target="_blank" class="navbar-brand" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/chat_window_admin">
-            <div
-            @if( where_i_am($there_is_error)=="UserChat")
-              class="active_navbar_item"
-            @else
-              onmouseover="this.style.background='#ffdca4';" onmouseout="this.style.background='white';" class="navbar_item"
-            @endif
-            >
-              <img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat.png'>Disponible Chat</div></a>&nbsp;
+@auth
+@if ( (Auth::user()->is_admin == 1) )
+
+<div class="dropdown">
+    <a class="navbar-brand" style="color:orange" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div
+      @if( where_i_am($there_is_error)=="Configuration")
+        class="active_navbar_item"
+      @else
+        onmouseover="this.style.background='#ffdca4';" onmouseout="this.style.background='white';" class="navbar_item"
+      @endif
+      >
+      <img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat.png'>Chat
+      </div>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+      <a target="_blank" class="dropdown-item" style="color:orange" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/chat_window_admin">
+        <img src='http://{{$_SERVER['HTTP_HOST']}}/img/calendar_crud.png'>Disponible&nbsp;
+      </a>
+      <a class="dropdown-item" style="color:orange" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/view_chats">
+        <img src='http://{{$_SERVER['HTTP_HOST']}}/img/calendar_crud.png'>Ver chats&nbsp;
+      </a>
+
+
+    </div>
+</div>
+
 @endif
+@endauth
+
       @auth
       @if ( (Auth::user()->is_admin == 1) )
 

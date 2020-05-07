@@ -84,5 +84,9 @@ function week_event()
     return TRUE;
 }
 
-
+function get_admin_name_from_id($id)
+{
+  $admin = DB::table('users')->where('id', $id)->first();
+  return $admin->name;
+}
 ?>
