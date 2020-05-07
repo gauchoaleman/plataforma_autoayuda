@@ -1,0 +1,5 @@
+@include('includes/head')
+@include('includes/navbar')
+@include('calendar.admin.tables.view_events_table')
+@include('includes/bottom_bar')
+@include('includes/bottom')
