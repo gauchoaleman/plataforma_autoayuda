@@ -15,9 +15,7 @@
           setInterval(load_log_user, 250,{{$_GET['admin_id']}});
         </script>
         <script type="text/javascript">
-        popupWindow.onunload = function () {
-            // This informs the user that the record has been added successfully
-            
+        popupWindow.onunload = function () {            
             window.opener.location.reload();
         }
         </script>

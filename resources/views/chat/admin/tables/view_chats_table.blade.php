@@ -13,6 +13,7 @@ $saved_chat_files_dir = opendir("chat/saved_chat_files");
   <thead>
     <tr>
       <th scope="col" style="color:orange">Fecha (click para ver chat)</th>
+      <th scope="col" style="color:orange">Hora</th>
       <th scope="col"  style="color:orange">Administrador</th>
     </tr>
   </thead>
@@ -25,6 +26,9 @@ $saved_chat_files_dir = opendir("chat/saved_chat_files");
   <tr>
   <td>
   <a class='card-link' href="/chat/admin/view_chat?file={{$file}}">{{date('d/m/Y', $parts[0])}}</a>
+  </td>
+  <td>
+  {{date('H:i', $parts[0])}}
   </td>
   <td>
   {{get_admin_name_from_id($parts[1])}}
