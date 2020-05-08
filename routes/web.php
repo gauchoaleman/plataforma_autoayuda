@@ -476,6 +476,10 @@ Route::get('/documents/user/show_document_user', function () {
   return view('/documents/user/show_document_user');
 });
 
+Route::get('/documents/user/documents_category_list', function () {
+  return view('/documents/user/documents_category_list');
+});
+
 Route::get('/chat/user/available_chatters', function () {
   if (!isset(Auth::user()->name))
     return view('no_access');

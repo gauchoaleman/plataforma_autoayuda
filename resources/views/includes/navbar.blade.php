@@ -55,18 +55,10 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             @foreach($categories as $category)
-              <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label"><div class="navbar-brand" style="color:orange">&nbsp;&nbsp;{{ $category->name }}</div></span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                    <?php $category_documents = DB::table('documents')->where('category_id', $category->id)->get(); ?>
-                    @foreach ($category_documents as $category_document)
-                       <li><a href="/documents/user/show_document_user?id={{ $category_document->id }}"><div style="color:orange" class="navbar-brand">{{ $category_document->title }}</div></a></li>
-                    @endforeach
-                    @if (!sizeof($category_documents))
-                       <li>&nbsp;</li>
-                    @endif
-                  </ul>
-              </li>
+
+                    <a href="/documents/user/documents_category_list?document_category_id={{$category->id}}" role="button"  aria-expanded="false"> <span class="nav-label"><div class="navbar-brand" style="color:orange">&nbsp;&nbsp;{{ $category->name }}</div></span><span class="caret"></span></a>
+
+
               @endforeach
           </div>
       </div>
