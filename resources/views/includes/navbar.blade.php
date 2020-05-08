@@ -94,6 +94,18 @@
 @auth
 @if ( (Auth::user()->is_admin == 1) )
 
+<a target="_blank" class="navbar-brand" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/chat_window_admin">
+  <div
+  @if( where_i_am($there_is_error)=="UserChat")
+    class="active_navbar_item"
+  @else
+    onmouseover="this.style.background='#ffdca4';" onmouseout="this.style.background='white';" class="navbar_item"
+  @endif
+  >
+    <img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat.png'>Chat</div></a>&nbsp;
+
+
+<!--
 <div class="dropdown">
     <a class="navbar-brand" style="color:orange" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div
@@ -118,7 +130,7 @@
 
     </div>
 </div>
-
+-->
 @endif
 @endauth
 
