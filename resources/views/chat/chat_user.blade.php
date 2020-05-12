@@ -31,6 +31,26 @@ else{
 </body>
 @else
         <script type="text/javascript">
+        function show_dialog(chat_session_id){
+            var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
+            $.ajax({
+              url: "{{ url('/chat/show_chat_dialog') }}",
+              type:'GET',
+              data: {'chat_session_id': chat_session_id},
+              cache: false,
+              success: function(html){
+                $("#chatbox").html(html); //Insert chat log into the #chatbox div
+
+                //Auto-scroll
+                var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height after the request
+                if(newscrollHeight > oldscrollHeight){
+                  $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+                }
+                },
+            });
+          }
+
+        setInterval(show_dialog, 250,{{$chat_session_id}});
           setInterval(show_dialog, 250,{{$chat_session_id}});
           window.addEventListener("unload", function(event) { $.ajax(
         {

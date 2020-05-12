@@ -1,6 +1,7 @@
 <div class="container">
 
-<?php $chat_sessions = DB::table('chat_sessions')->where('open',1)->get();?>
+<?php $chat_sessions = DB::table('chat_sessions')->join('users', 'users.id', '=', 'chat_sessions.admin_id')->
+select("chat_sessions.id as id","users.name as user_name")->where('open',1)->get();?>
 
 <div class="card">
   <div class="card-header" style="color:orange">Profesionales disponibles para chatear</div>
@@ -17,7 +18,7 @@
 @foreach($chat_sessions as $chat_session)
   <tr>
   <td>
-  {{$chat_session->admin_id}}
+  {{$chat_session->user_name}}
   </td>
   <td>
   <a class='card-link' target="popup" href="/chat/chat_user?chat_session_id={{$chat_session->id}}"><img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat_table.png'></a>

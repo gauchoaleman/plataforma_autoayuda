@@ -521,7 +521,7 @@ Route::any('/chat/chat_user', function () {
     return view('/chat/chat_user');
 });
 
-Route::post('/chat/show_chat_dialog', function () {
+Route::get('/chat/show_chat_dialog', function () {
   if (!isset(Auth::user()->name))
     return view('no_access');
   else
