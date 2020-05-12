@@ -505,6 +505,30 @@ Route::get('/chat/admin/view_chat', function () {
     return view('/chat/admin/view_chat');
 });
 
+Route::any('/chat/chat_admin', function () {
+  if (!isset(Auth::user()->name))
+    return view('no_access');
+  elseif (Auth::user()->is_admin == 0)
+    return view('no_access');
+  else
+    return view('/chat/chat_admin');
+});
+
+Route::any('/chat/chat_user', function () {
+  if (!isset(Auth::user()->name))
+    return view('no_access');
+  else
+    return view('/chat/chat_user');
+});
+
+Route::post('/chat/show_chat_dialog', function () {
+  if (!isset(Auth::user()->name))
+    return view('no_access');
+  else
+    return view('/chat/show_chat_dialog');
+});
+
+
 Route::get('/chat/admin/chat_window_admin', function () {
   if (!isset(Auth::user()->name))
     return view('no_access');

@@ -1,11 +1,11 @@
 <div class="container">
 
-<?php $users = DB::table('users')->whereRaw('chat_available IS TRUE')->get();?>
+<?php $chat_sessions = DB::table('chat_sessions')->where('open',1)->get();?>
 
 <div class="card">
   <div class="card-header" style="color:orange">Profesionales disponibles para chatear</div>
   <div class="card-body">
-@if( sizeof($users) )
+@if( sizeof($chat_sessions) )
 <table class="table table-striped">
   <thead>
     <tr>
@@ -14,13 +14,13 @@
     </tr>
   </thead>
   <tbody>
-@foreach($users as $user)
+@foreach($chat_sessions as $chat_session)
   <tr>
   <td>
-  {{$user->name}}
+  {{$chat_session->admin_id}}
   </td>
   <td>
-  <a class='card-link' target="popup" href="/chat/user/chat_window_user?admin_id={{$user->id}}"><img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat_table.png'></a>
+  <a class='card-link' target="popup" href="/chat/chat_user?chat_session_id={{$chat_session->id}}"><img src='http://{{$_SERVER['HTTP_HOST']}}/img/chat_table.png'></a>
   </td>
   </tr>
 @endforeach

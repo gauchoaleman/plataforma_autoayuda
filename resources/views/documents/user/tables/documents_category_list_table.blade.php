@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="card">
-    <div class="card-header" style="color:orange">Documentos categoría {{$category_name}}</div>
+    <div class="card-header" style="color:orange">Documentos de la categoría {{$category_name}}</div>
     <div class="card-body">
 <table class="table table-striped">
   <thead>

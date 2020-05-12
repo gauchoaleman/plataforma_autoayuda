@@ -13,8 +13,8 @@
     <form name="message" action="/chat/admin/chat_post_admin" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-        <div align=center> <input name="user_message" type="text" id="user_message" style="width:80%" />
-          <input name="chat_id" type="hidden" value="{{$chat_id}}" />
+        <div align=center> <input name="chat_message" type="text" id="chat_message" style="width:80%" />
+          <input name="chat_session_id" type="hidden" value="{{$chat_session_id}}" />
         <input name="submitmsg" type="submit"  id="submitmsg" value="Enviar" /> </div>
     </form>
 </div>

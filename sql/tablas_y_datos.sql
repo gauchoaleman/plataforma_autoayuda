@@ -1,29 +1,24 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 05-12-2019 a las 21:25:07
--- Versión del servidor: 5.7.26-0ubuntu0.18.10.1
--- Versión de PHP: 7.2.19-0ubuntu0.18.10.1
+-- Host: localhost
+-- Generation Time: May 11, 2020 at 04:07 PM
+-- Server version: 10.4.12-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Base de datos: `autoayuda`
+-- Database: `autoayuda`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -32,7 +27,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
@@ -44,7 +39,36 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `documents`
+-- Table structure for table `chat_messages`
+--
+
+CREATE TABLE `chat_messages` (
+  `id` bigint(20) NOT NULL,
+  `chat_id` bigint(20) NOT NULL,
+  `from_user_id` bigint(20) NOT NULL,
+  `to_user_id` bigint(20) NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_sessions`
+--
+
+CREATE TABLE `chat_sessions` (
+  `id` bigint(20) NOT NULL,
+  `admin_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL DEFAULT 0,
+  `show_notification` tinyint(4) NOT NULL DEFAULT 0,
+  `open` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` int(11) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `documents`
 --
 
 CREATE TABLE `documents` (
@@ -52,12 +76,12 @@ CREATE TABLE `documents` (
   `category_id` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
   `extension` varchar(10) NOT NULL,
-  `review` text,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `review` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `documents`
+-- Dumping data for table `documents`
 --
 
 INSERT INTO `documents` (`id`, `category_id`, `title`, `extension`, `review`, `created_at`) VALUES
@@ -69,7 +93,7 @@ INSERT INTO `documents` (`id`, `category_id`, `title`, `extension`, `review`, `c
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `events`
+-- Table structure for table `events`
 --
 
 CREATE TABLE `events` (
@@ -79,12 +103,12 @@ CREATE TABLE `events` (
   `address` text NOT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
-  `review` text,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `review` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `events`
+-- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `address`, `date`, `time`, `review`, `created_at`) VALUES
@@ -96,7 +120,7 @@ INSERT INTO `events` (`id`, `name`, `description`, `address`, `date`, `time`, `r
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -106,7 +130,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -117,17 +141,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
   `user_id` bigint(20) NOT NULL,
   `hashtag` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `password_resets`
+-- Dumping data for table `password_resets`
 --
 
 INSERT INTO `password_resets` (`user_id`, `hashtag`, `created_at`) VALUES
@@ -139,7 +163,7 @@ INSERT INTO `password_resets` (`user_id`, `hashtag`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -150,94 +174,121 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
-  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `chat_available` tinyint(1) DEFAULT '0'
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `chat_available` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `send_mail`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `is_admin`, `chat_available`) VALUES
-(17, 'Adm', 'admin@admin.com', 1, NULL, '$2y$10$zmIpgDUsyhPoGjsXpwZkZ.eGMb2Q3z2Y/vZra0r7n2w1Iqn3gztmO', NULL, '2019-09-02 03:22:11', '2019-10-25 19:35:13', 1, 0),
-(18, 'User', 'user@user.com', 0, NULL, '$2y$10$va7Lz3zkhdv1Pu9QjshaQ.fuGymFEseSR.VtRUIXXf0g/7HOHyFgy', NULL, '2019-09-02 03:24:34', NULL, 0, 0),
+(17, 'Adm', 'admin@admin.com', 1, NULL, '$2y$10$z24gdAhf5A4ca/y3KNVK3ufFahdI48jhZ9TMUYkUdbl9dSSXgKJ7W', NULL, '2019-09-02 03:22:11', '2019-10-25 19:35:13', 1, 0),
+(18, 'User', 'user@user.com', 0, NULL, '$2y$10$1bGb9uA/Jngg2AlStwE3/.IS385hZ8nEpTmFB5ecULB8Uk0cRVZLm', NULL, '2019-09-02 03:24:34', NULL, 0, 0),
 (27, 'Andrea Rosales', 'andrearosalespsi@gmail.com', 1, NULL, '$2y$10$.IppyzadSsayUHMKTKj6H.BA4ESHNzPvN86XVLLxRC99Ir.NhQrtq', NULL, '2019-09-25 20:10:28', NULL, 1, 0),
 (28, 'Lucas', 'lucaspassa@gmail.com', 1, NULL, '$2y$10$ErpanqbWUR8f2AQyJloUTuaVSzplVc4rp4pJsUf2ZkmaYoBZe2zV2', NULL, '2019-11-08 23:41:19', NULL, 0, 0),
 (29, 'Pepe', 'leo@gmail.com', 1, NULL, '$2y$10$1W7P/pPNjqe8HFBlfiRiA.gzP3/8iP4GDJN7LqW5zOXcnvj/uFfBi', NULL, '2019-11-25 22:34:54', NULL, 0, 0),
-(30, 'prchat', 'chat@chat.com', 1, NULL, '$2y$10$ziqGD1D4fBnRUR/J2MLXm.D39Rd/pEc4hVMrr.ujb1AcWygJ2WLYu', NULL, '2019-11-28 01:12:26', NULL, 1, 0);
+(30, 'prchat', 'chat@chat.com', 1, NULL, '$2y$10$ziqGD1D4fBnRUR/J2MLXm.D39Rd/pEc4hVMrr.ujb1AcWygJ2WLYu', NULL, '2019-11-28 01:12:26', NULL, 1, 0),
+(31, 'Stefan', 'stefan@stefan.com', 1, NULL, '$2y$10$gjWVNYxChQOXLD.qY0nFpuA3Hjg5J6aiGM9Ga6eXSkkjBrbdJJu2u', NULL, '2020-05-05 16:04:04', '2020-05-05 13:06:43', 1, 0);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `documents`
+-- Indexes for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat_sessions`
+--
+ALTER TABLE `chat_sessions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `documents`
 --
 ALTER TABLE `documents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `events`
+-- Indexes for table `events`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`user_id`);
 
 --
--- Indices de la tabla `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
--- AUTO_INCREMENT de la tabla `documents`
+-- AUTO_INCREMENT for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `chat_sessions`
+--
+ALTER TABLE `chat_sessions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 --
--- AUTO_INCREMENT de la tabla `events`
+-- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
--- AUTO_INCREMENT de la tabla `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+COMMIT;

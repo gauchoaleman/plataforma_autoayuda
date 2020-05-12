@@ -86,7 +86,7 @@
 @auth
 @if ( (Auth::user()->is_admin == 1) )
 
-<a target="_blank" class="navbar-brand" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/chat_window_admin">
+<a target="_blank" class="navbar-brand" href="http://{{$_SERVER['HTTP_HOST']}}/chat/chat_admin">
   <div
   @if( where_i_am($there_is_error)=="UserChat")
     class="active_navbar_item"
@@ -112,7 +112,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-      <a target="_blank" class="dropdown-item" style="color:orange" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/chat_window_admin">
+      <a target="_blank" class="dropdown-item" style="color:orange" href="http://{{$_SERVER['HTTP_HOST']}}/chat/chat_admin">
         <img src='http://{{$_SERVER['HTTP_HOST']}}/img/calendar_crud.png'>Disponible&nbsp;
       </a>
       <a class="dropdown-item" style="color:orange" href="http://{{$_SERVER['HTTP_HOST']}}/chat/admin/view_chats">
