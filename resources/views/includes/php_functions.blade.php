@@ -42,6 +42,8 @@ function where_i_am($there_is_error)
     return "Configuration";
   elseif( strpos($_SERVER['REQUEST_URI'],"/chat/user") !== FALSE )
       return "UserChat";
+  elseif( strpos($_SERVER['REQUEST_URI'],"/chat/admin") !== FALSE )
+      return "AdminChat";
   elseif( $_SERVER['REQUEST_URI']=="/mail/admin/mail_form" )
       return "SendMail";
   elseif ( $_SERVER['REQUEST_URI']=="/contact/contact" )

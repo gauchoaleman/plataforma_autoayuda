@@ -1,6 +1,4 @@
 <?php
-//echo "Blade Dialog";
-//echo "Chat session id: ".$_POST["chat_session_id"];
 $chat_messages = DB::table('chat_messages')->
 join('users', 'users.id', '=', 'chat_messages.from_user_id')->
 select('message', 'users.name as from_name')->
