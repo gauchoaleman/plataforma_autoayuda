@@ -51,8 +51,7 @@ else{
           }
 
         setInterval(show_dialog, 250,{{$chat_session_id}});
-          setInterval(show_dialog, 250,{{$chat_session_id}});
-          window.addEventListener("unload", function(event) { $.ajax(
+        window.addEventListener("unload", function(event) { $.ajax(
         {
             method:'get',
         url:'/chat/admin/unset_chat_available',

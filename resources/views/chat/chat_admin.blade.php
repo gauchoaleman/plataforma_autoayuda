@@ -42,11 +42,11 @@ else{
           setInterval(show_dialog, 250,{{$chat_session_id}});
           window.addEventListener("unload", function(event) { $.ajax(
             {
-              method:'get',
-              url:'/chat/admin/unset_chat_available',
+              url:"{{ url('/chat/admin/close_chat_admin') }}",
+              type:'GET',
               data:
               {
-                'admin_id': '{{Auth::user()->id}}'
+                'chat_session_id': '{{$chat_session_id}}'
               }
             }); });
         </script>

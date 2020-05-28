@@ -561,13 +561,13 @@ Route::post('/chat/user/chat_post_user', function () {
     return view('/chat/user/chat_post_user');
 });
 
-Route::get('/chat/admin/unset_chat_available', function () {
+Route::get('/chat/admin/close_chat_admin', function () {
   if (!isset(Auth::user()->name))
     return view('no_access');
   elseif (Auth::user()->is_admin == 0)
     return view('no_access');
   else
-    return view('/chat/admin/unset_chat_available');
+    return view('/chat/admin/close_chat_admin');
 });
 
 Route::get('/chat/admin/delete_start_file', function () {
