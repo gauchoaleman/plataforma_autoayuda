@@ -41,6 +41,17 @@ else{
 
           setInterval(show_dialog, 250,{{$chat_session_id}});
           window.addEventListener("unload", function(event) { $.ajax(
+          {
+            method:'get',
+            url:'/chat/admin/close_chat_admin',
+            data:
+            {
+              'chat_session_id': {{$chat_session_id}}
+            },
+            cache: false
+          }); });
+          /*
+          window.addEventListener("unload", function(event) { $.ajax(
             {
               url:"{{ url('/chat/admin/close_chat_admin') }}",
               type:'GET',
@@ -48,7 +59,7 @@ else{
               {
                 'chat_session_id': '{{$chat_session_id}}'
               }
-            }); });
+            }); });*/
         </script>
     </head>
 <body>
